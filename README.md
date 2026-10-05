@@ -45,6 +45,19 @@ Wenn Steam dich später abmeldet (das Spiel startet dann nicht mehr), wechselst 
 
 Dieses Repo enthält keine Zugangsdaten, Tokens, Steam- oder Spieldateien.
 
+## Wenn der Doppelklick nichts tut
+
+Meist liegen Reste abgebrochener Starts herum. Alles beenden und aufräumen:
+
+```sh
+S="$HOME/Applications/Sikarugir/Minecraft Dungeons II.app/Contents/SharedSupport"
+WINEPREFIX="$S/prefix" "$S/wine/bin/wineserver" -k
+rm -f "$TMPDIR"/xKWx*"Minecraft Dungeons II.app"/lockfile   # Launcher meldet sonst "Secondary run"
+rm -rf "$TMPDIR"/winetemp-*                                   # veraltete Wine-Zwischenspeicher ("could not load ntdll.so")
+```
+
+Den Wrapper nicht umbenennen, während er läuft. Startet Steam mit `-silent`, bleibt es nach dem Beenden des Spiels unsichtbar im Hintergrund. Vor Änderungen deshalb immer erst `wineserver -k` ausführen.
+
 ## Bekannte Eigenheiten
 
 - Im Protokoll des Fixes (`drive_c/xgr.log`) tauchen regelmäßig `begin failed … HttpCallPerform 80070057` auf. Das betrifft nur den Xbox-Freundesstatus und ist harmlos.
